@@ -21,7 +21,7 @@
 
 ####	net.core.bpf_jit_harden
 
- Linux Security Esm W400This adds security to the JIT (just-in-time) compilation used by the Berkeley Packet Filter (BPF). A default of 1 enables hardening for unprivileged users, though Fedora might go for 2, which applies the same protections to privileged users—locking things down tightly.
+ This adds security to the JIT (just-in-time) compilation used by the Berkeley Packet Filter (BPF). A default of 1 enables hardening for unprivileged users, though Fedora might go for 2, which applies the same protections to privileged users—locking things down tightly.
 
 <hr>
 
