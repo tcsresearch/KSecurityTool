@@ -13,9 +13,14 @@ function KSecurity_Check() {
 }
 
 function KSecurity_Enable() {
+	echo "Enabling Added Security To The Linux Kernel..."
+	echo "ptrace_scope: "
 	echo 1 > /proc/sys/kernel/yama/ptrace_scope
+	echo "kptr_restrict: "
 	echo 1 > /proc/sys/kernel/kptr_restrict
+	echo "bpf_jit_harden: "
 	echo 2 > /proc/sys/net/core/bpf_jit_harden
+	echo " "
 }
 
 ########## Main Program ##########
