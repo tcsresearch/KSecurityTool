@@ -26,9 +26,9 @@ function KSecurity_Check() {
 function KSecurity_BackupConfig() {
 	# TODO: Test Configuration Save Feature.
 	echo "Backing up configuration..."
-	echo "ptrace_scope: $(cat /proc/sys/kernel/yama/ptrace_scope)" > $KST_BackupFile-$KST_Today
-	echo "pktr_restrict: $(cat /proc/sys/kernel/kptr_restrict)"	   >> $KST_BackupFile-$KST_Today
-	echo "bpf_jit_harden: $(cat /proc/sys/net/core/bpf_jit_harden)" >> $KST_BackupFile-$KST_Today
+	echo "ptrace_scope: $(cat /proc/sys/kernel/yama/ptrace_scope)" > "$KST_BackupFile-$KST_Today"
+	echo "pktr_restrict: $(cat /proc/sys/kernel/kptr_restrict)"	   >> "$KST_BackupFile-$KST_Today"
+	echo "bpf_jit_harden: $(cat /proc/sys/net/core/bpf_jit_harden)" >> "$KST_BackupFile-$KST_Today"
 	echo " "
 }
 
