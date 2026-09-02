@@ -1,7 +1,7 @@
 # KSecurityTool - Kernel Security Tool
 
 ### More Restrictions for ptrace, BPF, and Linux Kernel Symbol Access
-#### Fedora 44 plans to flip a few kernel parameters to strengthen security. Here’s the gist:
+#### Fedora 45 plans to flip a few kernel parameters to strengthen security. Here’s the gist:
 
 <hr>
 
