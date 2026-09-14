@@ -37,7 +37,9 @@ function KSecurity_DisplayBanner() {
 function Check_bpf_jit_harden() {
 ## FIXME: Needs Root!
 
+echo "#####################################"
 echo "---------- bpf_jit_harden ----------"
+echo "#####################################"
 echo " "
 
 # Configuration #
@@ -93,7 +95,9 @@ echo " "
 
 function Check_kptr_restrict() {
 
+echo "#####################################"
 echo "---------- kptr_restrict ----------"
+echo "#####################################"
 echo " "
 
 # Configuration and target definitions
@@ -145,7 +149,9 @@ echo " "
 
 function Check_ptrace_scope() {
 
+echo "#####################################"
 echo "---------- ptrace_scope ----------"
+echo "#####################################"
 echo " "
 
 # Paths
