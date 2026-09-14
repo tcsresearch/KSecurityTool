@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuration and target definitions
-CONFIG_FILE="security.conf"
+CONFIG_FILE="conf/security.conf"
 PROC_FILE="/proc/sys/kernel/kptr_restrict"
 
 # 1. Verify the /proc entry exists
