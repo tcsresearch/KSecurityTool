@@ -2,7 +2,7 @@
 
 # Paths
 PROC_FILE="/proc/sys/kernel/yama/ptrace_scope"
-CONFIG_FILE="ptrace.conf"
+CONFIG_FILE="conf/ptrace.conf"
 
 # Ensure proc file exists (Yama LSM must be enabled)
 if [ ! -f "$PROC_FILE" ]; then
