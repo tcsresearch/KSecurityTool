@@ -31,6 +31,7 @@ function DisplayBanner() {
 ###########################################################################################################################################
 
 function Check_bpf_jit_harden() {
+## FIXME: Needs Root!
 
 # Configuration #
     BPF_PROC_PATH="/proc/sys/net/core/bpf_jit_harden"
