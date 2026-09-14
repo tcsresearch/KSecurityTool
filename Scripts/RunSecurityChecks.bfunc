@@ -33,48 +33,48 @@ function DisplayBanner() {
 function Check_bpf_jit_harden() {
 
 # Configuration #
-    PROC_PATH="/proc/sys/net/core/bpf_jit_harden"
-    SYSCTL_KEY="net.core.bpf_jit_harden"
+    BPF_PROC_PATH="/proc/sys/net/core/bpf_jit_harden"
+    BPF_SYSCTL_KEY="net.core.bpf_jit_harden"
 
 # 1. Check runtime value in /proc
-    if [ ! -f "$PROC_PATH" ]; then
+    if [ ! -f "$BPF_PROC_PATH" ]; then
         echo "Error: BPF JIT compilation or proc entry not found on this kernel."
         return 1
     fi
 
-    RUNTIME_VAL=$(cat "$PROC_PATH")
+    BPF_RUNTIME_VAL=$(cat "$BPF_PROC_PATH")
 
     # 2. Determine runtime security status
     # 0 = Disabled (Not Secure)
     # 1 = Hardening for unprivileged users only (Partially Secure)
     # 2 = Hardening for all users (Fully Secure / Recommended)
-    if [ "$RUNTIME_VAL" -eq 2 ]; then
-        RUNTIME_STATUS="SECURE (Fully hardened for all users)"
-    elif [ "$RUNTIME_VAL" -eq 1 ]; then
-        RUNTIME_STATUS="PARTIALLY SECURE (Hardened for unprivileged users only)"
+    if [ "$BPF_RUNTIME_VAL" -eq 2 ]; then
+        BPF_RUNTIME_STATUS="SECURE (Fully hardened for all users)"
+    elif [ "$BPF_RUNTIME_VAL" -eq 1 ]; then
+        BPF_RUNTIME_STATUS="PARTIALLY SECURE (Hardened for unprivileged users only)"
     else
-        RUNTIME_STATUS="NOT SECURE (Hardening disabled)"
+        BPF_RUNTIME_STATUS="NOT SECURE (Hardening disabled)"
     fi
 
     echo "--- Runtime Status ---"
-    echo "Current value in proc: $RUNTIME_VAL ($RUNTIME_STATUS)"
+    echo "Current value in proc: $BPF_RUNTIME_VAL ($BPF_RUNTIME_STATUS)"
 
     # 3. Check persistent configuration files
     echo -e "\n--- Config File Status ---"
 
     # Grab the final evaluation of sysctl configs as systemd sees them
-    CONFIG_VAL=$(sysctl --cat-config 2>/dev/null | grep -E -v '^(#|;)' | grep "$SYSCTL_KEY" | tail -n 1 | awk -F'=' '{print $2}' | tr -d ' ')
+    BPF_CONFIG_VAL=$(sysctl --cat-config 2>/dev/null | grep -E -v '^(#|;)' | grep "$BPF_SYSCTL_KEY" | tail -n 1 | awk -F'=' '{print $2}' | tr -d ' ')
 
-    if [ -z "$CONFIG_VAL" ]; then
-        echo "Result: NOT SECURE. No persistent setting found for '$SYSCTL_KEY' in configuration files."
+    if [ -z "$BPF_CONFIG_VAL" ]; then
+        echo "Result: NOT SECURE. No persistent setting found for '$BPF_SYSCTL_KEY' in configuration files."
         echo "Default kernel configuration will apply on reboot."
     else
-        if [ "$CONFIG_VAL" -eq 2 ]; then
-            echo "Result: SECURE. Persistent configuration defines '$SYSCTL_KEY = 2'."
-        elif [ "$CONFIG_VAL" -eq 1 ]; then
-            echo "Result: PARTIALLY SECURE. Persistent configuration defines '$SYSCTL_KEY = 1'."
+        if [ "$BPF_CONFIG_VAL" -eq 2 ]; then
+            echo "Result: SECURE. Persistent configuration defines '$BPF_SYSCTL_KEY = 2'."
+        elif [ "$BPF_CONFIG_VAL" -eq 1 ]; then
+            echo "Result: PARTIALLY SECURE. Persistent configuration defines '$BPF_SYSCTL_KEY = 1'."
         else
-            echo "Result: NOT SECURE. Persistent configuration explicitly disables hardening ('$SYSCTL_KEY = 0')."
+            echo "Result: NOT SECURE. Persistent configuration explicitly disables hardening ('$BPF_SYSCTL_KEY = 0')."
         fi
     fi
 }
@@ -85,36 +85,36 @@ function Check_bpf_jit_harden() {
 
 function Check_kptr_restrict() {
 # Configuration and target definitions
-    CONFIG_FILE="conf/kptr_restrict.conf"
-    PROC_FILE="/proc/sys/kernel/kptr_restrict"
+    KPTR_CONFIG_FILE="conf/kptr_restrict.conf"
+    KPTR_PROC_FILE="/proc/sys/kernel/kptr_restrict"
 
 # 1. Verify the /proc entry exists
-    if [ ! -f "$PROC_FILE" ]; then
-        echo "Error: $PROC_FILE not found. Is this a Linux system?"
+    if [ ! -f "$KPTR_PROC_FILE" ]; then
+        echo "Error: $KPTR_PROC_FILE not found. Is this a Linux system?"
         return 2
     fi
 
 # 2. Verify and parse the configuration file
-    if [ ! -f "$CONFIG_FILE" ]; then
-        echo "Error: Configuration file '$CONFIG_FILE' missing."
+    if [ ! -f "$KPTR_CONFIG_FILE" ]; then
+        echo "Error: Configuration file '$KPTR_CONFIG_FILE' missing."
         return 2
     fi
 
 # Safely extract expected value using grep/awk instead of sourcing the file
-    EXPECTED_VALUE=$(grep -E '^kernel\.kptr_restrict[[:space:]]*=' "$CONFIG_FILE" | awk -F'=' '{print $2}' | tr -d '[:space:]')
+    KPTR_EXPECTED_VALUE=$(grep -E '^kernel\.kptr_restrict[[:space:]]*=' "$KPTR_CONFIG_FILE" | awk -F'=' '{print $2}' | tr -d '[:space:]')
 
-    if [ -z "$EXPECTED_VALUE" ]; then
-        echo "Error: 'kernel.kptr_restrict' not defined in $CONFIG_FILE."
+    if [ -z "$KPTR_EXPECTED_VALUE" ]; then
+        echo "Error: 'kernel.kptr_restrict' not defined in $KPTR_CONFIG_FILE."
         return 2
     fi
 
 # 3. Read the live system state
-    CURRENT_VALUE=$(cat "$PROC_FILE")
+    KPTR_CURRENT_VALUE=$(cat "$KPTR_PROC_FILE")
 
 # 4. Evaluate compliance and determine if secure
 # Note: Security standards usually dictate a value of '1' or '2'
-    if [ "$CURRENT_VALUE" -eq "$EXPECTED_VALUE" ]; then
-        if [ "$CURRENT_VALUE" -gt 0 ]; then
+    if [ "$KPTR_CURRENT_VALUE" -eq "$KPTR_EXPECTED_VALUE" ]; then
+        if [ "$KPTR_CURRENT_VALUE" -gt 0 ]; then
             echo "Secure"
             return 0
         else
@@ -122,7 +122,7 @@ function Check_kptr_restrict() {
             return 1
         fi
     else
-        echo "Not Secure (System value '$CURRENT_VALUE' does not match config target '$EXPECTED_VALUE')"
+        echo "Not Secure (System value '$KPTR_CURRENT_VALUE' does not match config target '$KPTR_EXPECTED_VALUE')"
         return 1
     fi
 }
@@ -134,40 +134,40 @@ function Check_kptr_restrict() {
 function Check_ptrace_scope() {
 
 # Paths
-    PROC_FILE="/proc/sys/kernel/yama/ptrace_scope"
-    CONFIG_FILE="conf/ptrace.conf"
+    PTRACE_PROC_FILE="/proc/sys/kernel/yama/ptrace_scope"
+    PTRACE_CONFIG_FILE="conf/ptrace.conf"
 
 # Ensure proc file exists (Yama LSM must be enabled)
-    if [ ! -f "$PROC_FILE" ]; then
-        echo "ERROR: $PROC_FILE not found. Yama security module might be disabled."
+    if [ ! -f "$PTRACE_PROC_FILE" ]; then
+        echo "ERROR: $PTRACE_PROC_FILE not found. Yama security module might be disabled."
         return 1
     fi
 
 # Ensure config file exists
-    if [ ! -f "$CONFIG_FILE" ]; then
-        echo "ERROR: Configuration file '$CONFIG_FILE' missing."
+    if [ ! -f "$PTRACE_CONFIG_FILE" ]; then
+        echo "ERROR: Configuration file '$PTRACE_CONFIG_FILE' missing."
         return 1
     fi
 
 # 1. Read current runtime value from /proc
-    current_value=$(cat "$PROC_FILE")
+    current_value=$(cat "$PTRACE_PROC_FILE")
 
 # 2. Source the config file to read minimum secure threshold
 # Expected format inside ptrace.conf: MIN_SECURE_LEVEL=1
-    source "$CONFIG_FILE"
+    source "$PTRACE_CONFIG_FILE"
 
-    if [ -z "$MIN_SECURE_LEVEL" ]; then
-        echo "ERROR: MIN_SECURE_LEVEL is not defined in $CONFIG_FILE"
+    if [ -z "$PTRACE_MIN_SECURE_LEVEL" ]; then
+        echo "ERROR: PTRACE_MIN_SECURE_LEVEL is not defined in $PTRACE_CONFIG_FILE"
         return 1
     fi
 
 # 3. Evaluate and return result
     echo "--- PTRACE SCOPE STATUS ---"
     echo "Current Runtime Value: $current_value"
-    echo "Configured Threshold:  $MIN_SECURE_LEVEL"
+    echo "Configured Threshold:  $PTRACE_MIN_SECURE_LEVEL"
     echo "---------------------------"
 
-    if [ "$current_value" -ge "$MIN_SECURE_LEVEL" ]; then
+    if [ "$current_value" -ge "$PTRACE_MIN_SECURE_LEVEL" ]; then
         echo "STATUS: SECURE"
         return 0
     else
