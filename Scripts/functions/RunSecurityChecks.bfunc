@@ -162,7 +162,7 @@ function Check_ptrace_scope() {
     fi
 
 # 3. Evaluate and return result
-    echo "----- PTRACE SCOPE STATUS -----"
+    echo "PTRACE SCOPE STATUS ----------"
     echo "  Current Runtime Value: $current_value  "
     echo "  Configured Threshold:  $PTRACE_MIN_SECURE_LEVEL  "
     echo "-------------------------------"
