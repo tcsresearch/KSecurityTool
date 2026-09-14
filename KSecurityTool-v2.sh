@@ -3,11 +3,11 @@
 # Taken From: https://linuxsecurity.com/news/security-projects/fedora-44-vs-kernel-exploits
 #
 
-KST_Version="26.07_r1"
+KST_Version="26.09_r1"
 KST_BackupFile="KST_ConfigBackup.conf"
 KST_Today="$(date +%Y%m%d)"
 
-########## Define Functions ##########
+########## Define Functions - Main ##########
 
 function KSecurity_DisplayBanner() {
 	echo "KSecurityTool - Version $KST_Version."
@@ -32,6 +32,8 @@ function KSecurity_BackupConfig() {
 	echo " "
 }
 
+########## Define Functions - Enable/Disable Security ##########
+
 function KSecurity_Enable() {
 	echo "Enabling Added Security To The Linux Kernel..."
 	echo "ptrace_scope: "
@@ -40,6 +42,17 @@ function KSecurity_Enable() {
 	echo 1 > /proc/sys/kernel/kptr_restrict
 	echo "bpf_jit_harden: "
 	echo 2 > /proc/sys/net/core/bpf_jit_harden
+	echo " "
+}
+
+function KSecurity_Disable() {
+	echo "Disabling Added Security To The Linux Kernel..."
+	echo "ptrace_scope: "
+	echo 0 > /proc/sys/kernel/yama/ptrace_scope
+	echo "kptr_restrict: "
+	echo 0 > /proc/sys/kernel/kptr_restrict
+	echo "bpf_jit_harden: "
+	echo 0 > /proc/sys/net/core/bpf_jit_harden
 	echo " "
 }
 
