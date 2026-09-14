@@ -37,6 +37,9 @@ function KSecurity_DisplayBanner() {
 function Check_bpf_jit_harden() {
 ## FIXME: Needs Root!
 
+echo "---------- bpf_jit_harden ----------"
+echo " "
+
 # Configuration #
     BPF_PROC_PATH="/proc/sys/net/core/bpf_jit_harden"
     BPF_SYSCTL_KEY="net.core.bpf_jit_harden"
@@ -89,6 +92,10 @@ function Check_bpf_jit_harden() {
 ###########################################################################################################################################
 
 function Check_kptr_restrict() {
+
+echo "---------- kptr_restrict ----------"
+echo " "
+
 # Configuration and target definitions
     KPTR_CONFIG_FILE="conf/kptr_restrict.conf"
     KPTR_PROC_FILE="/proc/sys/kernel/kptr_restrict"
@@ -137,6 +144,9 @@ function Check_kptr_restrict() {
 ###########################################################################################################################################
 
 function Check_ptrace_scope() {
+
+echo "---------- ptrace_scope ----------"
+echo " "
 
 # Paths
     PTRACE_PROC_FILE="/proc/sys/kernel/yama/ptrace_scope"
