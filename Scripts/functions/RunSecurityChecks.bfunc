@@ -35,7 +35,7 @@ function KSecurity_DisplayBanner() {
 ###########################################################################################################################################
 
 function Check_bpf_jit_harden() {
-## FIXME: Needs Root!
+## IMPORTANT: Needs Root!
 
 echo "#####################################"
 echo "---------- bpf_jit_harden ----------"
@@ -52,7 +52,7 @@ echo " "
         return 1
     fi
 
-	### TEST: Root Fix
+	### INFO: Root Fix
     ### BPF_RUNTIME_VAL=$(cat "$BPF_PROC_PATH")
 	BPF_RUNTIME_VAL=$(sudo cat "$BPF_PROC_PATH")
 
