@@ -1,6 +1,8 @@
 #!/bin/env bash
 
-KST_VERSION="26.09-r1"
+KST_Version="26.09_r1"
+KST_BackupFile="KST_ConfigBackup.conf"
+KST_Today="$(date +%Y%m%d)"
 
 ###########################################################################################################################################
 # Display Functions #                                                                                                                     #
@@ -24,7 +26,7 @@ function NewLineCinema() {
 function KSecurity_DisplayBanner() {
 	echo "KSecurityTool - Version $KST_Version."
 	echo "-------------------------------------"
-	# echo "BackupFile: $KST_BackupFile-$KST_Today"
+	echo "BackupFile: $KST_BackupFile-$KST_Today"
 	echo " "
 }
 
