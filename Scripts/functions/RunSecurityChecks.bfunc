@@ -38,6 +38,18 @@ else
 fi
 }
 
+function SudoWrapper() {
+  # Check if the effective user ID (EUID) is 0 (root)
+  if [ "$EUID" -ne 0 ]; then
+    SUDO="sudo"
+  else
+    SUDO=""
+  fi
+
+  # Execute the command passed as the first argument ($1)
+  $SUDO "$1"
+}
+
 ###########################################################################################################################################
 # Check_bpf_jit_harden.sh #                                                                                                               #
 ###########################################################################################################################################
