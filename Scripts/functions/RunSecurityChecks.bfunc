@@ -21,9 +21,11 @@ function NewLineCinema() {
 }
 
 
-function DisplayBanner() {
-    echo "Kernel Security Tool - Version $KST_Version."
-    echo " "
+function KSecurity_DisplayBanner() {
+	echo "KSecurityTool - Version $KST_Version."
+	echo "-------------------------------------"
+	# echo "BackupFile: $KST_BackupFile-$KST_Today"
+	echo " "
 }
 
 ###########################################################################################################################################
