@@ -1,6 +1,6 @@
 #!/bin/env bash
 
-KST_Version="26.09_r1"
+KST_Version="26.09_r4"
 KST_BackupFile="KST_ConfigBackup.conf"
 KST_Today="$(date +%Y%m%d)"
 
@@ -32,9 +32,9 @@ function KSecurity_DisplayBanner() {
 
 function CheckRoot() {
 if [ $(whoami) = 'root' ]; then
-	echo "You are root"
+	echo "${green} You are root. ${reset}"
 else
-	echo "You are not root"
+	echo "${green} You are not root! ${reset}"
 fi
 }
 
@@ -56,7 +56,7 @@ echo " "
 
 # 1. Check runtime value in /proc
     if [ ! -f "$BPF_PROC_PATH" ]; then
-        echo "Error: BPF JIT compilation or proc entry not found on this kernel."
+        echo "${red} ERROR: BPF JIT compilation or proc entry not found on this kernel. ${reset}"
         return 1
     fi
 
@@ -86,15 +86,15 @@ echo " "
     BPF_CONFIG_VAL=$(sysctl --cat-config 2>/dev/null | grep -E -v '^(#|;)' | grep "$BPF_SYSCTL_KEY" | tail -n 1 | awk -F'=' '{print $2}' | tr -d ' ')
 
     if [ -z "$BPF_CONFIG_VAL" ]; then
-        echo "Result: NOT SECURE. No persistent setting found for '$BPF_SYSCTL_KEY' in configuration files."
+        echo "${red} Result: NOT SECURE. No persistent setting found for '$BPF_SYSCTL_KEY' in configuration files. ${reset}"
         echo "Default kernel configuration will apply on reboot."
     else
         if [ "$BPF_CONFIG_VAL" -eq 2 ]; then
-            echo "Result: SECURE. Persistent configuration defines '$BPF_SYSCTL_KEY = 2'."
+            echo "${green} Result: SECURE. Persistent configuration defines '$BPF_SYSCTL_KEY = 2'. ${reset} "
         elif [ "$BPF_CONFIG_VAL" -eq 1 ]; then
-            echo "Result: PARTIALLY SECURE. Persistent configuration defines '$BPF_SYSCTL_KEY = 1'."
+            echo "${orange} Result: PARTIALLY SECURE. Persistent configuration defines '$BPF_SYSCTL_KEY = 1'. ${reset} "
         else
-            echo "Result: NOT SECURE. Persistent configuration explicitly disables hardening ('$BPF_SYSCTL_KEY = 0')."
+            echo "${red} Result: NOT SECURE. Persistent configuration explicitly disables hardening ('$BPF_SYSCTL_KEY = 0'). ${reset} "
         fi
     fi
 }
@@ -116,13 +116,13 @@ echo " "
 
 # 1. Verify the /proc entry exists
     if [ ! -f "$KPTR_PROC_FILE" ]; then
-        echo "Error: $KPTR_PROC_FILE not found. Is this a Linux system?"
+        echo "${red} ERROR: $KPTR_PROC_FILE not found. Is this a Linux system? ${reset} "
         return 2
     fi
 
 # 2. Verify and parse the configuration file
     if [ ! -f "$KPTR_CONFIG_FILE" ]; then
-        echo "Error: Configuration file '$KPTR_CONFIG_FILE' missing."
+        echo "${red} ERROR: Configuration file '$KPTR_CONFIG_FILE' missing. ${reset} "
         return 2
     fi
 
@@ -130,7 +130,7 @@ echo " "
     KPTR_EXPECTED_VALUE=$(grep -E '^kernel\.kptr_restrict[[:space:]]*=' "$KPTR_CONFIG_FILE" | awk -F'=' '{print $2}' | tr -d '[:space:]')
 
     if [ -z "$KPTR_EXPECTED_VALUE" ]; then
-        echo "Error: 'kernel.kptr_restrict' not defined in $KPTR_CONFIG_FILE."
+        echo "${red} ERROR: 'kernel.kptr_restrict' not defined in $KPTR_CONFIG_FILE. ${reset} "
         return 2
     fi
 
@@ -141,14 +141,14 @@ echo " "
 # Note: Security standards usually dictate a value of '1' or '2'
     if [ "$KPTR_CURRENT_VALUE" -eq "$KPTR_EXPECTED_VALUE" ]; then
         if [ "$KPTR_CURRENT_VALUE" -gt 0 ]; then
-            echo "Secure"
+            echo "${green} [ SECURE ] ${reset} "
             return 0
         else
-            echo "Not Secure (System matches config, but kptr_restrict is disabled [0])"
+            echo "${red} [ NOT SECURE ] {reset}  (System matches config, but kptr_restrict is disabled [0])"
             return 1
         fi
     else
-        echo "Not Secure (System value '$KPTR_CURRENT_VALUE' does not match config target '$KPTR_EXPECTED_VALUE')"
+        echo "${red} [ NOT SECURE ] ${reset} (System value '$KPTR_CURRENT_VALUE' does not match config target '$KPTR_EXPECTED_VALUE')"
         return 1
     fi
 }
@@ -170,13 +170,13 @@ echo " "
 
 # Ensure proc file exists (Yama LSM must be enabled)
     if [ ! -f "$PTRACE_PROC_FILE" ]; then
-        echo "ERROR: $PTRACE_PROC_FILE not found. Yama security module might be disabled."
+        echo "${red} ERROR: $PTRACE_PROC_FILE not found. Yama security module might be disabled. ${reset} "
         return 1
     fi
 
 # Ensure config file exists
     if [ ! -f "$PTRACE_CONFIG_FILE" ]; then
-        echo "ERROR: Configuration file '$PTRACE_CONFIG_FILE' missing."
+        echo "${red} ERROR: Configuration file '$PTRACE_CONFIG_FILE' missing. ${reset} "
         return 1
     fi
 
@@ -188,7 +188,7 @@ echo " "
     source "$PTRACE_CONFIG_FILE"
 
     if [ -z "$PTRACE_MIN_SECURE_LEVEL" ]; then
-        echo "ERROR: PTRACE_MIN_SECURE_LEVEL is not defined in $PTRACE_CONFIG_FILE"
+        echo "${red} ERROR: PTRACE_MIN_SECURE_LEVEL is not defined in $PTRACE_CONFIG_FILE. ${reset} "
         return 1
     fi
 
@@ -199,10 +199,10 @@ echo " "
     echo "-------------------------------"
 
     if [ "$current_value" -ge "$PTRACE_MIN_SECURE_LEVEL" ]; then
-        echo "  STATUS: SECURE  "
+        echo "  STATUS: ${green} [ SECURE ] ${reset} "
         return 0
     else
-        echo "  STATUS: NOT SECURE  "
+        echo "  STATUS: $red} [ NOT SECURE ] ${reset} "
         return 1
     fi
 }
