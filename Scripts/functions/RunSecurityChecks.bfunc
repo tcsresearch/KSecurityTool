@@ -163,15 +163,15 @@ function Check_ptrace_scope() {
 
 # 3. Evaluate and return result
     echo "--- PTRACE SCOPE STATUS ---"
-    echo "Current Runtime Value: $current_value"
-    echo "Configured Threshold:  $PTRACE_MIN_SECURE_LEVEL"
-    echo "---------------------------"
+    echo "  Current Runtime Value: $current_value  "
+    echo "  Configured Threshold:  $PTRACE_MIN_SECURE_LEVEL  "
+    echo "--------------------------------"
 
     if [ "$current_value" -ge "$PTRACE_MIN_SECURE_LEVEL" ]; then
-        echo "STATUS: SECURE"
+        echo "  STATUS: SECURE  "
         return 0
     else
-        echo "STATUS: NOT SECURE"
+        echo "  STATUS: NOT SECURE  "
         return 1
     fi
 }
