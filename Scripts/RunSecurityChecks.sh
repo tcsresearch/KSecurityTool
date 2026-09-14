@@ -45,6 +45,7 @@ fi
 
 # Main Program #
 
+NewLine
 KSecurity_DisplayBanner
 
 Check_bpf_jit_harden
