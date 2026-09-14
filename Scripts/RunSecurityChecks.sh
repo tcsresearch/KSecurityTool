@@ -45,7 +45,7 @@ fi
 
 # Main Program #
 
-DisplayBanner
+KSecurity_DisplayBanner
 
 Check_bpf_jit_harden
 NewLineCinema
