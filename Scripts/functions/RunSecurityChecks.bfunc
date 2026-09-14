@@ -52,7 +52,9 @@ echo " "
         return 1
     fi
 
-    BPF_RUNTIME_VAL=$(cat "$BPF_PROC_PATH")
+	### TEST: Root Fix
+    ### BPF_RUNTIME_VAL=$(cat "$BPF_PROC_PATH")
+	BPF_RUNTIME_VAL=$(sudo cat "$BPF_PROC_PATH")
 
     # 2. Determine runtime security status
     # 0 = Disabled (Not Secure)
