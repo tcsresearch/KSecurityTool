@@ -58,7 +58,10 @@ function KSecurity_Disable() {
 
 ########## Main Program ##########
 
+DisplayBanner
+
 KSecurity_Check
 # KSecurity_BackupConfig
 # KSecurity_Enable
-#
+# KSecurity_Disable
+
