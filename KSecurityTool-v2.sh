@@ -16,6 +16,14 @@ function KSecurity_DisplayBanner() {
 	echo " "
 }
 
+function CheckRoot() {
+if [ $(whoami) = 'root' ]; then
+	echo "You are root"
+else
+	echo "You are not root"
+fi
+}
+
 function KSecurity_Check() {
 	echo "ptrace_scope: $(cat /proc/sys/kernel/yama/ptrace_scope)" 
 	echo "pktr_restrict: $(cat /proc/sys/kernel/kptr_restrict)"
