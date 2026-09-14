@@ -4,6 +4,7 @@
 # Check_bpf_jit_harden.sh #                                                                                                               #
 ###########################################################################################################################################
 
+function Check_bpf_jit_harden() {
 PROC_PATH="/proc/sys/net/core/bpf_jit_harden"
 SYSCTL_KEY="net.core.bpf_jit_harden"
 
@@ -48,11 +49,13 @@ else
         echo "Result: NOT SECURE. Persistent configuration explicitly disables hardening ('$SYSCTL_KEY = 0')."
     fi
 fi
+}
 
 ###########################################################################################################################################
 # Check_kptr_restrict.sh #                                                                                                                #
 ###########################################################################################################################################
 
+function Check_kptr_restrict() {
 # Configuration and target definitions
 CONFIG_FILE="conf/kptr_restrict.conf"
 PROC_FILE="/proc/sys/kernel/kptr_restrict"
@@ -94,11 +97,13 @@ else
     echo "Not Secure (System value '$CURRENT_VALUE' does not match config target '$EXPECTED_VALUE')"
     exit 1
 fi
+}
 
 ###########################################################################################################################################
 # Check_ptrace_scope.sh #                                                                                                                 #
 ###########################################################################################################################################
 
+function Check_ptrace_scope() {
 # Paths
 PROC_FILE="/proc/sys/kernel/yama/ptrace_scope"
 CONFIG_FILE="conf/ptrace.conf"
@@ -140,6 +145,7 @@ else
     echo "STATUS: NOT SECURE"
     exit 1
 fi
+}
 
 
 
