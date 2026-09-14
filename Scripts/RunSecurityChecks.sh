@@ -14,7 +14,7 @@ CONF_DIR="conf"
 FUNC_DIR="functions"
 
 # Define Our Colors Library #
-COLORS_FILE="Colors.conf"
+COLORS_FILE="Colors2.conf"
 
 # Define Our Functions Library #
 FUNCTIONS_FILE="RunSecurityChecks.bfunc"
