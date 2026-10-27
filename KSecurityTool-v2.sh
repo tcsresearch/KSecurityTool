@@ -3,7 +3,7 @@
 # Taken From: https://linuxsecurity.com/news/security-projects/fedora-44-vs-kernel-exploits
 #
 
-KST_Version="26.09_r2"
+KST_Version="26.09_r3"
 KST_BackupFile="KST_ConfigBackup.conf"
 KST_Today="$(date +%Y%m%d)"
 
