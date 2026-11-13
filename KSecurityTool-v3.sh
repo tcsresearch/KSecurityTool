@@ -37,7 +37,7 @@ if [ -f "$KST_ColorsFile" ]; then
 	DisplayLine
 	echo " ${green} Colors File $KST_ColorsFile Loaded Successfully. ${reset}"
 else
-    echo "ERROR: Color configuration file not found at $KST_ColorsFile" >&2
+    echo " ${red} ERROR: Color configuration file not found at ${brightwhite} $KST_ColorsFile. ${reset}" >&2
 fi
 
 ########## Define Functions - Main ##########
@@ -48,12 +48,12 @@ function KSecurity_DisplayBanner() {
 	echo "KSecurityTool - Version $KST_Version."
 	# echo "--------------------------------------------------------------------------"
 	DisplayLine
-	echo "   ${green} Backup File: 		${brightwhite} $KST_BackupFile-$KST_Today"
-	echo "   ${green} Colors File: 		${brightwhite} $KST_ColorsFile"
-	echo "   ${green} Functions File: 	${brightwhite} $KST_FuncFile"
+	echo "   ${green} Backup File: 		${brightwhite} $KST_BackupFile-$KST_Today ${reset}"
+	echo "   ${green} Colors File: 		${brightwhite} $KST_ColorsFile ${reset}"
+	echo "   ${green} Functions File: 	${brightwhite} $KST_FuncFile ${reset}"
 	# echo "--------------------------------------------------------------------------"
 	DisplayLine
-	echo "   ${green} Root Status: 		${brightwhite} $RootStatusText"
+	echo "   ${green} Root Status: 		${brightwhite} $RootStatusText ${reset}"
 	# echo " "
 	NewLine
 }
