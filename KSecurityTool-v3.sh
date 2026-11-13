@@ -109,9 +109,7 @@ usage() {
 	echo "  -d, --disable		Disable Linux kernel security."
     echo "  -h, --help          Display this help message."
     echo ""
-    echo "Example:"
-    echo "  $(basename "$0") --reload"
-    return 1
+    # return 1
 }
 
 # Check if no arguments were provided
@@ -141,7 +139,7 @@ function RunCase() {
         	;;
     	*)
         	echo "Error: Invalid option '$1'"
-        	# echo " "
+        	echo " "
         	usage
         	;;
 	esac
