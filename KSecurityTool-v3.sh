@@ -141,7 +141,7 @@ function RunCase() {
         	;;
     	*)
         	echo "Error: Invalid option '$1'"
-        	echo ""
+        	echo " "
         	usage
         	;;
 	esac
