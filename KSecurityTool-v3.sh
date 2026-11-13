@@ -13,8 +13,8 @@ KST_RootStatus="Unknown" # Default to "Unknown"; Use w/ CheckRoot2 to see if we 
 KST_ConfDir="$(pwd)/conf"
 KST_FuncDir="$(pwd)/functions"
 
-KST_ColorsFile="$(pwd)/$KST_ConfDir/Colors2.conf"
-KST_FuncFile="$(pwd)/$KST_FuncDir/KSecurityTool.bfunc"
+KST_ColorsFile="$KST_ConfDir/Colors2.conf"
+KST_FuncFile="$KST_FuncDir/KSecurityTool.bfunc"
 
 KST_BackupFile="KST_ConfigBackup.conf"
 KST_Today="$(date +%Y%m%d)"
