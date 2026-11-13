@@ -150,7 +150,7 @@ function RunCase() {
 CheckRoot2 # Run this first for KSecurity_DisplayBanner.
 KSecurity_DisplayBanner
 
-CheckArgs
+CheckArgs "$@"
 RunCase "$@"
 
 # KSecurity_Check
