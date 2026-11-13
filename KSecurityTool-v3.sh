@@ -1,9 +1,11 @@
 #!/bin/env bash
 
+# shellcheck disable=SC2034
+
 # Taken From: https://linuxsecurity.com/news/security-projects/fedora-44-vs-kernel-exploits
 #
 
-KST_Version="26.11_r1"
+KST_Version="26.11_r2"
 KST_RootStatus="Unknown" # Default to "Unknown"; Use w/ CheckRoot2 to see if we should set to 1.
 # NOTE: Display will show as Yes or No.
 
