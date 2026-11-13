@@ -151,7 +151,7 @@ CheckRoot2 # Run this first for KSecurity_DisplayBanner.
 KSecurity_DisplayBanner
 
 CheckArgs
-RunCase
+RunCase "$@"
 
 # KSecurity_Check
 # KSecurity_BackupConfig
