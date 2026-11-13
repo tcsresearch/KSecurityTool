@@ -30,19 +30,33 @@ else
     echo "ERROR: Color configuration file not found at $KST_ColorsFile" >&2
 fi
 
+
+########## Define Display Functions ##########
+
+function DisplayLine() {
+	echo " ${brightblue}__________________________________________________${reset}"
+}
+
+function NewLine() {
+	echo " "
+}
+
 ########## Define Functions - Main ##########
 ### TODO: Ensure all functions are inside $KST_FuncFile.
 #          Source and remove code from script.
 
 function KSecurity_DisplayBanner() {
 	echo "KSecurityTool - Version $KST_Version."
-	echo "-------------------------------------"
+	# echo "--------------------------------------------------------------------------"
+	DisplayLine
 	echo "Backup File: 		$KST_BackupFile-$KST_Today"
 	echo "Colors File: 		$KST_ColorsFile"
 	echo "Functions File: 	$KST_FuncFile"
-	echo "-------------------------------------"
+	# echo "--------------------------------------------------------------------------"
+	DisplayLine
 	echo "Root Status: 		$RootStatusText"
-	echo " "
+	# echo " "
+	NewLine
 }
 
 function CheckRoot() { # To be removed after CheckRoot2 proves successful.
