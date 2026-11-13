@@ -45,12 +45,13 @@ fi
 #          Source and remove code from script.
 
 function KSecurity_DisplayBanner() {
-	echo "KSecurityTool - Version $KST_Version."
+	NewLine
+	echo "   KSecurityTool - Version $KST_Version."
 	# echo "--------------------------------------------------------------------------"
 	DisplayLine
 	echo "   ${green} Backup File: 		${brightwhite} $KST_BackupFile-$KST_Today ${reset}"
 	echo "   ${green} Colors File: 		${brightwhite} $KST_ColorsFile ${reset}"
-	echo "   ${green} Functions File: 	${brightwhite} $KST_FuncFile ${reset}"
+	echo "   ${green} Functions File:	${brightwhite} $KST_FuncFile ${reset}"
 	# echo "--------------------------------------------------------------------------"
 	DisplayLine
 	echo "   ${green} Root Status: 		${brightwhite} $RootStatusText ${reset}"
