@@ -93,7 +93,7 @@ function NewLine() {
 ########## Sanity Checker - Colors File ##########
 # Source our Color Config
 
-SanityChecker $KST_ColorsFile
+SanityChecker "$KST_ColorsFile"
 
 ### TODO: Remove the SourceColorsFile_Old function if 'SanityChecker $KST_ColorsFile' works as expected.
 function SourceColorsFile_Old() {
@@ -108,7 +108,7 @@ function SourceColorsFile_Old() {
 }
 
 ########## Sanity Checker - Functions File ##########
-SanityChecker $KST_FuncFile
+SanityChecker "$KST_FuncFile"
 
 
 ########## Main Program ##########
