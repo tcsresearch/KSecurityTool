@@ -6,9 +6,10 @@ KSecurityTool-v2.sh works under initial testing, but use at your own risk!
 
 <br>
 
+KSecurityTool-v4.sh will NOT run yet!  SplitConfig is enabled, but there is an issue sourcing the $KST_ColorsFile.
+
 KSecurityTool-v3.sh is NOT ready yet - bugs exist with new features incl sudo elevation for value display.  
-Improvements in v3 also include additional config values, a few new functions, and untested friendly display of data values.
-Colors2.conf support is pending - file hasn't been sourced yet in the code - we want tot drop in our sanity checker first.
+ Improvements in v3 also include additional config values, color support, a few new functions, and untested friendly display of data values.
 
 <br>
 
