@@ -1,7 +1,23 @@
 # KSecurityTool - Kernel Security Tool
 
+### General Info
+ 
+KSecurityTool-v2.sh works under initial testing, but use at your own risk!
+
+<br>
+
+KSecurityTool-v3.sh is NOT ready yet - bugs exist with new features incl sudo elevation for value display.  
+Improvements in v3 also include additional config values, a few new functions, and untested friendly display of data values.
+Colors2.conf support is pending - file hasn't been sourced yet in the code - we want tot drop in our sanity checker first.
+
+<br>
+
+sysctl-util.sh is currently untested.
+
+<hr>
+
 ### More Restrictions for ptrace, BPF, and Linux Kernel Symbol Access
-#### Fedora 45 plans to flip a few kernel parameters to strengthen security. Here’s the gist:
+#### Fedora 45 (released Oct/Nov 2026) decided to flip a few kernel parameters to strengthen security. Here’s the gist:
 
 <hr>
 
