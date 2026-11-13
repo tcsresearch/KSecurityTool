@@ -49,12 +49,12 @@ function KSecurity_DisplayBanner() {
 	echo "KSecurityTool - Version $KST_Version."
 	# echo "--------------------------------------------------------------------------"
 	DisplayLine
-	echo "Backup File: 		$KST_BackupFile-$KST_Today"
-	echo "Colors File: 		$KST_ColorsFile"
-	echo "Functions File: 	$KST_FuncFile"
+	echo "   Backup File: 		$KST_BackupFile-$KST_Today"
+	echo "   Colors File: 		$KST_ColorsFile"
+	echo "   Functions File: 	$KST_FuncFile"
 	# echo "--------------------------------------------------------------------------"
 	DisplayLine
-	echo "Root Status: 		$RootStatusText"
+	echo "   Root Status: 		$RootStatusText"
 	# echo " "
 	NewLine
 }
