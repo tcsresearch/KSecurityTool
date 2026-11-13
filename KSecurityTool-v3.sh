@@ -149,7 +149,7 @@ function RunCase() {
 
 ########## Main Program ##########
 
-CheckRoot # Run this first for KSecurity_DisplayBanner.
+CheckRoot2 # Run this first for KSecurity_DisplayBanner.
 KSecurity_DisplayBanner
 
 CheckArgs
