@@ -35,7 +35,7 @@ if [ -f "$KST_ColorsFile" ]; then
     source "$KST_ColorsFile"
 	COLORS_FILE_LOADED="TRUE"
 	DisplayLine
-	echo " ${green} Colors File $KST_ColorsFile Loaded Successfully. ${reset}"
+	echo " ${green} Colors File ${brightwite} $KST_ColorsFile ${green} Loaded Successfully. ${reset}"
 else
     echo " ${red} ERROR: Color configuration file not found at ${brightwhite} $KST_ColorsFile. ${reset}" >&2
 fi
