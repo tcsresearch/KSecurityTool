@@ -19,18 +19,6 @@ KST_FuncFile="$KST_FuncDir/KSecurityTool.bfunc"
 KST_BackupFile="KST_ConfigBackup.conf"
 KST_Today="$(date +%Y%m%d)"
 
-
-########## Sanity Checker - Colors File ##########
-# Source our Color Config
-if [ -f "$KST_ColorsFile" ]; then
-    source "$KST_ColorsFile"
-	COLORS_FILE_LOADED="TRUE"
-	echo " ${green}Colors File $KST_ColorsFile Loaded Successfully. ${reset}"
-else
-    echo "ERROR: Color configuration file not found at $KST_ColorsFile" >&2
-fi
-
-
 ########## Define Display Functions ##########
 
 function DisplayLine() {
@@ -40,6 +28,17 @@ function DisplayLine() {
 function NewLine() {
 	echo " "
 }
+
+########## Sanity Checker - Colors File ##########
+# Source our Color Config
+if [ -f "$KST_ColorsFile" ]; then
+    source "$KST_ColorsFile"
+	COLORS_FILE_LOADED="TRUE"
+	DisplayLine
+	echo " ${green}Colors File $KST_ColorsFile Loaded Successfully. ${reset}"
+else
+    echo "ERROR: Color configuration file not found at $KST_ColorsFile" >&2
+fi
 
 ########## Define Functions - Main ##########
 ### TODO: Ensure all functions are inside $KST_FuncFile.
