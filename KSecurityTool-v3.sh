@@ -4,6 +4,7 @@
 #
 
 KST_Version="26.11_r1"
+KST_RootStatus="0" # Dfeault 0; Use w/ CheckRoot2 to see if we should set to 1.
 
 KST_ConfDir="$(pwd)/conf"
 KST_FuncDir="$(pwd)/functions"
@@ -21,16 +22,29 @@ KST_Today="$(date +%Y%m%d)"
 function KSecurity_DisplayBanner() {
 	echo "KSecurityTool - Version $KST_Version."
 	echo "-------------------------------------"
-	echo "BackupFile: $KST_BackupFile-$KST_Today"
+	echo "Backup File: 		$KST_BackupFile-$KST_Today"
+	echo "Colors File: 		$KST_ColorsFile"
+	echo "Functions File: 	$KST_FuncFile"
+	echo "-------------------------------------"
+	echo "Root Status: 		$KST_RootStatus"
 	echo " "
 }
 
-function CheckRoot() {
+function CheckRoot() { # To be removed after CheckRoot2 proves successful.
 # TODO: Force root via sudo or stop.
 if [ "$(whoami)" = 'root' ]; then
 	echo "You are root"
 else
 	echo "You are not root"
+fi
+}
+
+function CheckRoot2() {
+# TODO: Force root via sudo or stop.
+if [ "$(whoami)" = 'root' ]; then
+	KST_RootStatus="1"
+else
+	KST_RootStatus="0"
 fi
 }
 
@@ -80,13 +94,68 @@ function KSecurity_Disable() {
 	echo " "
 }
 
+
+########## CASE Statement ##########
+# Taken from sysctl-util.sh
+
+# Usage function explaining how to run the script and what options are available
+usage() {
+    echo "Usage: $(basename "$0") [option]"
+    echo ""
+    echo "Options:"
+    echo "  -s, --status        Check current status of Linux kernel security."
+    echo "  -b, --backup        Backup kernel configuration."
+    echo "  -e, --enable        Enable Linux kernel security."
+	echo "  -d, --disable		Disable Linux kernel security."
+    echo "  -h, --help          Display this help message."
+    echo ""
+    echo "Example:"
+    echo "  $(basename "$0") --reload"
+    return 1
+}
+
+# Check if no arguments were provided
+function CheckArgs() {
+	if [ $# -eq 0 ]; then
+    	usage
+	fi
+}
+
+# Parse command-line arguments using a case statement
+function RunCase() {
+	case "$1" in
+    	-s|--status)
+        	KSecurity_Check
+        	;;
+    	-b|--backup)
+        	KSecurity_BackupConfig
+        	;;
+    	-e|--enable)
+        	KSecurity_Enable
+        	;;
+		-d|--disable)
+        	KSecurity_Disable
+        	;;
+    	-h|--help)
+        	usage
+        	;;
+    	*)
+        	echo "Error: Invalid option '$1'"
+        	echo ""
+        	usage
+        	;;
+	esac
+}
+
 ########## Main Program ##########
 
+CheckRoot # Run this first for KSecurity_DisplayBanner.
 KSecurity_DisplayBanner
 
-# TODO: Create CASE statement or use GetOpts
+CheckArgs
+RunCase
 
-KSecurity_Check
+# KSecurity_Check
 # KSecurity_BackupConfig
 # KSecurity_Enable
 # KSecurity_Disable
