@@ -1,6 +1,7 @@
 #!/bin/env bash
 
 # shellcheck disable=SC2034
+# shellcheck source=/dev/null
 
 # Taken From: https://linuxsecurity.com/news/security-projects/fedora-44-vs-kernel-exploits
 #
