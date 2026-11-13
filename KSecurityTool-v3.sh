@@ -101,15 +101,15 @@ function KSecurity_Disable() {
 # Usage function explaining how to run the script and what options are available
 usage() {
     echo "Usage: $(basename "$0") [option]"
-    echo ""
+    echo " "
     echo "Options:"
     echo "  -s, --status        Check current status of Linux kernel security."
     echo "  -b, --backup        Backup kernel configuration."
     echo "  -e, --enable        Enable Linux kernel security."
 	echo "  -d, --disable		Disable Linux kernel security."
     echo "  -h, --help          Display this help message."
-    echo ""
-    # return 1
+    echo " "
+    return 1
 }
 
 # Check if no arguments were provided
