@@ -71,9 +71,11 @@ KST_Version="26.11_r3"
 KST_RootStatus="Unknown" # Default to "Unknown"; Use w/ CheckRoot2 to see if we should set to 1.
 # NOTE: Display will show as Yes or No.
 
+### Define Folders ###
 KST_ConfDir="$(pwd)/conf"
 KST_FuncDir="$(pwd)/functions"
 
+### Define Files ###
 KST_ColorsFile="$KST_ConfDir/Colors2.conf"
 KST_FuncFile="$KST_FuncDir/KSecurityTool.bfunc"
 
