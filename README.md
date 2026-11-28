@@ -1,5 +1,12 @@
 # KSecurityTool - Kernel Security Tool
 
+<h3>Project Status</h3>
+<p>
+  <!-- SHELLCHECK_COMPLIANCE_START --> <strong>Shellcheck Date Of Compliance:</strong> Pending Execution <!-- SHELLCHECK_COMPLIANCE_END -->
+</p>
+
+<hr>
+
 ### General Info
  
 KSecurityTool-v2.sh works under initial testing, but use at your own risk!
